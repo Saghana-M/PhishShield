@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan History – PhishShield</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Minimalist Navigation Bar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+                <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+                <span>PhishShield</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Scanner</a></li>
+                    <li><a href="history.html" class="nav-link active">Scan History</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="container">
+
+            <section class="hero-section" style="margin-bottom: 1.5rem; text-align: left;">
+                <h1 class="hero-title" style="font-size: 1.75rem;">URL Scan History</h1>
+                <p class="hero-desc" style="margin: 0; font-size: 0.95rem;">
+                    Browse previously analyzed URLs stored in the MySQL database (SCAN_HISTORY joined with URL_MASTER).
+                </p>
+            </section>
+
+            <!-- Table Container Card -->
+            <div class="table-card">
+                <div class="table-toolbar">
+                    <input type="text" id="filterInput" class="search-input" placeholder="Search by URL or status...">
+                    <button id="refreshBtn" class="btn btn-primary btn-sm">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                        </svg>
+                        Refresh History
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="historyTable">
+                        <thead>
+                            <tr>
+                                <th>Scan ID</th>
+                                <th>Scanned URL</th>
+                                <th>Risk Score</th>
+                                <th>Risk Status</th>
+                                <th>Scan Date</th>
+                                <th>Total Scans</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                                    Loading scan history...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Details Modal Dialog -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Scan Details</h3>
+                <button type="button" class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" id="modalDismissBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>PhishShield &copy; 2026 – College Academic Project in Java OOP &amp; MySQL DBMS</p>
+        </div>
+    </footer>
+
+    <script src="js/history.js"></script>
+</body>
+</html>

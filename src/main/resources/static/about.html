@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About &amp; Viva Guide – PhishShield</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Minimalist Navigation Bar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+                <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+                <span>PhishShield</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Scanner</a></li>
+                    <li><a href="history.html" class="nav-link">Scan History</a></li>
+                    <li><a href="about.html" class="nav-link active">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="container">
+
+            <section class="hero-section" style="margin-bottom: 2rem; text-align: left;">
+                <span class="hero-subtitle">Project Documentation &amp; Viva Guide</span>
+                <h1 class="hero-title" style="font-size: 2rem;">About PhishShield</h1>
+                <p class="hero-desc" style="margin: 0; font-size: 1rem;">
+                    A functional college project bridging Java Object-Oriented Programming (OOP) and Database Management Systems (DBMS).
+                </p>
+            </section>
+
+            <!-- Section 1: What is Phishing -->
+            <div class="about-card">
+                <h2>1. What is Phishing and How PhishShield Works</h2>
+                <p>
+                    <strong>Phishing</strong> is a form of social engineering where attackers deceive users into visiting fraudulent websites designed to steal credentials, personal data, or session cookies. Most phishing attacks originate via deceptive links distributed through email, SMS (smishing), or instant messaging.
+                </p>
+                <p>
+                    <strong>PhishShield</strong> analyzes the structural and lexical characteristics of submitted URLs using a static, rule-based heuristic detection engine.
+                </p>
+                <p>
+                    <strong>Crucial Security Principle:</strong> PhishShield <em>never visits, fetches, or establishes a network connection</em> to submitted URLs. Analysis is performed purely in-memory using Java lexical analysis.
+                </p>
+            </div>
+
+            <!-- Section 2: Detection Rules & Scoring -->
+            <div class="about-card">
+                <h2>2. Heuristic Detection Rules &amp; Risk Scoring</h2>
+                <p>PhishShield evaluates five core structural indicators, each assigned a weighted risk score:</p>
+                <ul>
+                    <li><strong>Unusually Long URL (+10 pts):</strong> Detects URLs exceeding 75 characters. Phishers use bloated URLs to pack encoded redirect destinations and push actual domains out of browser view.</li>
+                    <li><strong>IP Address as Hostname (+25 pts):</strong> Detects raw IPv4 or IPv6 numerical addresses used instead of registered domain names. Attackers use this to evade domain registrar vetting.</li>
+                    <li><strong>Suspicious Keyword Combinations (+10 pts):</strong> Flags URLs containing credential-harvesting keywords (e.g. <em>login</em>, <em>verify</em>, <em>account</em>, <em>security</em>) especially when paired with high-value brands (<em>paypal</em>, <em>apple</em>, <em>chase</em>).</li>
+                    <li><strong>Unusual Subdomain Structure (+15 pts):</strong> Flags deep subdomain nesting (>2 dots) or brand names embedded inside subdomains (e.g., <em>paypal.com.evil-portal.net</em>).</li>
+                    <li><strong>Misleading URL Structure (+20 pts):</strong> Detects deceptive syntaxes such as the <code>@</code> credential trick, abnormal ports (e.g. <code>:8080</code>, <code>:8443</code>), excessive domain hyphenation, or double slashes in paths.</li>
+                </ul>
+                <p>
+                    <strong>Risk Classifications:</strong>
+                    The cumulative score is capped at 100 and classified as:
+                </p>
+                <ul>
+                    <li><span class="badge badge-success">0 – 19: Low Risk</span> Standard vigilance recommended.</li>
+                    <li><span class="badge badge-warning">20 – 49: Suspicious</span> Multiple warning indicators found. Proceed with caution.</li>
+                    <li><span class="badge badge-danger">50 – 100: High Risk</span> Strong structural indicators of phishing. Avoid interacting.</li>
+                </ul>
+            </div>
+
+            <!-- Section 3: Java OOP Architecture -->
+            <div class="about-card">
+                <h2>3. Java OOP Implementation (College Viva Summary)</h2>
+                <p>PhishShield is engineered to demonstrate the four pillars of Object-Oriented Programming:</p>
+
+                <h3>Encapsulation</h3>
+                <p>
+                    Classes like <code class="code-snippet">URL.java</code>, <code class="code-snippet">Scan.java</code>, and <code class="code-snippet">Finding.java</code> encapsulate internal state using <code>private</code> member variables. Access and modification are mediated exclusively through validated constructors, getters, and setters.
+                </p>
+
+                <h3>Abstraction</h3>
+                <p>
+                    The detection architecture separates interface from implementation. The interface <code class="code-snippet">DetectionRule.java</code> defines the contract (<code>evaluate(URL)</code>), while <code class="code-snippet">BaseDetectionRule.java</code> provides shared abstract functionality.
+                </p>
+
+                <h3>Inheritance</h3>
+                <p>
+                    Concrete detection rules (<code class="code-snippet">LongURLRule</code>, <code class="code-snippet">IPAddressRule</code>, <code class="code-snippet">SuspiciousKeywordRule</code>, <code class="code-snippet">SubdomainRule</code>, <code class="code-snippet">URLStructureRule</code>) inherit shared state and utility methods from <code class="code-snippet">BaseDetectionRule</code>.
+                </p>
+
+                <h3>Polymorphism</h3>
+                <p>
+                    <code class="code-snippet">URLAnalyzer.java</code> manages an <code>ArrayList&lt;DetectionRule&gt;</code> collection. At runtime, it loops through each rule polymorphically calling <code>rule.evaluate(url)</code> without knowing the concrete class type.
+                </p>
+
+                <h3>Exception Handling &amp; Collections</h3>
+                <p>
+                    Custom exceptions (<code class="code-snippet">InvalidUrlException</code>, <code class="code-snippet">DatabaseOperationException</code>, <code class="code-snippet">UrlNotFoundException</code>) are intercepted by <code class="code-snippet">GlobalExceptionHandler.java</code>. Collections like <code>ArrayList</code>, <code>LinkedHashSet</code>, and <code>Map</code> are used for clean data structures.
+                </p>
+            </div>
+
+            <!-- Section 4: MySQL Database Design -->
+            <div class="about-card">
+                <h2>4. MySQL Database Schema (DBMS Summary)</h2>
+                <p>The application interacts with <strong>MySQL 8</strong> (<code class="code-snippet">phishshield_db</code>) using Spring <code>JdbcTemplate</code> and transactions:</p>
+                <ul>
+                    <li>
+                        <strong><code>URL_MASTER</code>:</strong> Stores unique URLs. Columns: <code>url_id</code> (PK), <code>original_url</code>, <code>normalized_url</code> (UNIQUE), <code>latest_score</code>, <code>latest_status</code>, <code>first_seen</code>, <code>last_seen</code>, <code>total_scans</code>.
+                    </li>
+                    <li>
+                        <strong><code>SCAN_HISTORY</code>:</strong> Stores every scan event. Columns: <code>scan_id</code> (PK), <code>url_id</code> (FK), <code>scanned_url</code>, <code>scan_score</code>, <code>scan_status</code>, <code>scanned_at</code>.
+                    </li>
+                    <li>
+                        <strong><code>SCAN_FINDINGS</code>:</strong> Stores individual warning signs per scan. Columns: <code>finding_id</code> (PK), <code>scan_id</code> (FK), <code>rule_name</code>, <code>points</code>, <code>explanation</code>.
+                    </li>
+                </ul>
+                <p>
+                    <strong>DBMS Concepts Implemented:</strong> Parameterized queries (SQL injection prevention), Foreign Key referential integrity with cascading deletes, Indexing for sub-millisecond retrieval, <code>JOIN</code> operations combining scan history with URL stats, aggregate <code>COUNT</code> queries, and <code>GROUP BY</code> analytics.
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>PhishShield &copy; 2026 – College Academic Project in Java OOP &amp; MySQL DBMS</p>
+        </div>
+    </footer>
+
+</body>
+</html>
