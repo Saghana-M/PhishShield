@@ -160,13 +160,3 @@ http://localhost:8080
 ```
 
 ---
-
-## 8. College Viva Presentation Guide
-
-### Quick Answers for Examiners:
-1. **Why not use Machine Learning or Web Scraping?**
-   - PhishShield demonstrates foundational computer science principles: deterministic algorithmic evaluation, OOP design patterns, and relational DBMS architecture. Furthermore, never visiting submitted URLs protects the host environment from malicious drive-by downloads or tracking beacons.
-2. **How does Polymorphism work in this project?**
-   - In `URLAnalyzer.java`, rules are stored in a `List<DetectionRule>`. When evaluating a URL, `rule.evaluate(url)` dynamically invokes the correct child class (`LongURLRule`, `IPAddressRule`, etc.) without branching statements.
-3. **How is URL Normalization handled?**
-   - The `URL.java` class normalizes scheme and host to lowercase and removes default ports (80/443), while critically retaining query strings and paths so distinct target pages are not improperly conflated.
